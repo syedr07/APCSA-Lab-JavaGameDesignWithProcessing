@@ -33,7 +33,7 @@ int player1Row = 3;
 int player1Col = 0;
 int health = 3;
 AnimatedSprite walkingChick;
-Button b1 = new Button("rect", 625, 525, 150, 50, "GoToLevel2");
+Button b1;
 
 //VARIABLES: Level2World Pixel-based Screen
 World level2World;
@@ -97,10 +97,14 @@ void setup() {
   player1.resize(level1Grid.getTileWidth(),level1Grid.getTileHeight());
   walkingChick = new AnimatedSprite("sprites/chick_walk.png", "sprites/chick_walk.json", 0.0, 0.0, 5.0);
   level1Grid.setTileSprite(new GridLocation (5,5), walkingChick);
+
+  b1 = new Button("rect", 625, 525, 150, 50, "GoToLevel2");
+  b1.setFontStyle("fonts/spidermanFont.ttf");
   b1.setTextColor(b1.BLACK);
   b1.setButtonColor(b1.CYAN);
   b1.setHoverColor(color(100,50,200));
   b1.setClickColor(null);
+
   System.out.println("Done loading Level 1 ...");
   
   //SETUP: Level 2
@@ -192,10 +196,16 @@ void keyPressed(){
 //Known Processing method that automatically will run when a mouse click triggers it
 void mouseClicked(){
   
-  //check if click was successful
+  //Print coordinates of mouse click
   System.out.println("\nMouse was clicked at (" + mouseX + "," + mouseY + ")");
+
+  //Display color of pixel clicked
+  color c = get(mouseX, mouseY);
+  System.out.println("Pixel color --> (R:"+(int)red(c)+",G:"+(int)green(c)+",B:"+(int)blue(c)+")");
+
+  //Print grid coordinate clicked
   if(currentGrid != null){
-    System.out.println("Grid location: " + currentGrid.getGridLocation());
+    System.out.println("Grid location --> " + currentGrid.getGridLocation());
   }
 
   //what to do if clicked? (Make player1 jump back?)
