@@ -1,7 +1,7 @@
 /* GridLocation class - helper class to store coordinates more easily
  * Author: Joel Bianchi
- * Last Edit: 5/22/2023
- * Added .equals() method, Renamed getRow() & getCol()
+ * Last Edit: 5/8/25
+ * Updated to Java version
  */
 
 public class GridLocation{
