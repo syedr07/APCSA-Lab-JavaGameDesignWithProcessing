@@ -5,6 +5,7 @@
  * Updated to Java version
  */
 
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -31,7 +32,7 @@ public class Screen{
         if(bg != null) {
             this.setBg(bg);
         }
-        System.out.println("bg of " + screenName + " Screen: " + Game.toStringPImage(bg));
+        System.out.println("bg of " + screenName + " Screen: " + Util.toStringPImage(bg));
         startTime = getTotalTime(); //?
     }
 

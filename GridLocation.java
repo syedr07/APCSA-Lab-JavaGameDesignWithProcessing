@@ -4,6 +4,7 @@
  * Updated to Java version
  */
 
+
 public class GridLocation{
  
   int row;

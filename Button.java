@@ -6,7 +6,6 @@
  */
 
 import processing.core.PApplet;
-// import processing.core.PImage;
 import processing.core.PFont;
 
 
@@ -67,7 +66,7 @@ public class Button {
     //------------------ BUTTON METHODS --------------------//
 
     //Button method to be called each cycle -- ie. inside draw() or updateScreen() 
-    void show() {
+    public void show() {
         
         //Sets outline stroke around button (3 pixels, BLACK)
         p.strokeWeight(2);

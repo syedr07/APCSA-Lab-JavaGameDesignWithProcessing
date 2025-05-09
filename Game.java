@@ -4,8 +4,7 @@
  * Updated to Java version
  */
 
-// import processing.sound.*;
-
+//import processing.sound.*;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -29,7 +28,7 @@ public class Game extends PApplet{
   Screen splashScreen;
   PImage splashBg;
   String splashBgFile = "images/apcsa.png";
-  // SoundFile song;
+  //SoundFile song;
 
   // VARIABLES: Level1Grid Screen
   Grid level1Grid;
@@ -105,7 +104,7 @@ public class Game extends PApplet{
     level1Grid = new Grid(this, "chessBoard", level1Bg, 6, 8);
     //level1Grid.startPrintingGridMarks();
     level2World = new World(p, "sky", level2Bg, 4.0f, 0.0f, -800.0f); //moveable World constructor --> defines center & scale (x, scale, y)???
-    System.out.println( "World constructed: " + toStringPImage(level2World.getBgImage()));
+    System.out.println( "World constructed: " + Util.toStringPImage(level2World.getBgImage()));
        
     // level2World = new World("sky", level2Bg);   //non-moving World construtor
     endScreen = new World(this, "end", endBg);
@@ -122,6 +121,7 @@ public class Game extends PApplet{
 
     b1 = new Button(this, "rect", 625, 525, 150, 50, "GoTo Level 2");
     b1.setFontStyle("fonts/spidermanFont.ttf");
+    b1.setFontStyle("Helvetica");
     b1.setTextColor(Color.WHITE);
     b1.setButtonColor(Color.BLACK);
     b1.setHoverColor(Color.getColor(100,50,200));
@@ -137,9 +137,9 @@ public class Game extends PApplet{
     System.out.println("Done loading Level 2 ...");
     
     //SETUP: Sound
-    // Load a soundfile from the /data folder of the sketch and play it back
-    // song = new SoundFile(this, "sounds/Lenny_Kravitz_Fly_Away.mp3");
-    // song.play();
+    // Load a soundfile from the sounds folder of the sketch and play it back
+     //song = new SoundFile(this, "sounds/Lenny_Kravitz_Fly_Away.mp3");
+     //song.play();
     
     System.out.println("Game started...");
 
@@ -420,12 +420,5 @@ public class Game extends PApplet{
 
   }
 
-
-  public static String toStringPImage(PImage img){
-    if(img == null){
-      return "PImage is null !!!!";
-    }
-    return "PImage at: " + img + "\t(w:" + img.width + ",h:" + img.height + ")";
-  }
 
 } //close class
