@@ -1,7 +1,7 @@
 /* Game Class Starter File
  * Authors: Joel A. Bianchi
- * Last Edit: 5/8/25
- * Updated to Java version
+ * Last Edit: 5/10/25
+ * PColor edits
  */
 
 //import processing.sound.*;
@@ -122,10 +122,10 @@ public class Game extends PApplet{
     b1 = new Button(this, "rect", 625, 525, 150, 50, "GoTo Level 2");
     b1.setFontStyle("fonts/spidermanFont.ttf");
     b1.setFontStyle("Helvetica");
-    b1.setTextColor(Color.WHITE);
-    b1.setButtonColor(Color.BLACK);
-    b1.setHoverColor(Color.getColor(100,50,200));
-    b1.setOutlineColor(Color.WHITE);
+    b1.setTextColor(PColor.WHITE);
+    b1.setButtonColor(PColor.BLACK);
+    b1.setHoverColor(PColor.getPColor(100,50,200));
+    b1.setOutlineColor(PColor.WHITE);
 
     System.out.println("Done loading Level 1 ...");
     
@@ -235,7 +235,7 @@ public class Game extends PApplet{
     // Display color of pixel clicked
     int color = p.get(p.mouseX, p.mouseY);
     // System.out.println("Pixel color --> (R:"+(int)p.red(color)+",G:"+(int)p.green(color)+",B:"+(int)p.blue(color)+")");
-    Color.printColors(p, color);
+    PColor.printColors(p, color);
 
     // Print grid coordinate clicked
     if(currentGrid != null){
