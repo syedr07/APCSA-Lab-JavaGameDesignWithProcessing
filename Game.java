@@ -124,7 +124,7 @@ public class Game extends PApplet{
     // b1.setFontStyle("Helvetica");
     b1.setTextColor(PColor.WHITE);
     b1.setButtonColor(PColor.BLACK);
-    b1.setHoverColor(PColor.getPColor(100,50,200));
+    b1.setHoverColor(PColor.get(100,50,200));
     b1.setOutlineColor(PColor.WHITE);
 
     System.out.println("Done loading Level 1 ...");
@@ -235,7 +235,6 @@ public class Game extends PApplet{
     // Display color of pixel clicked
     int color = p.get(p.mouseX, p.mouseY);
     PColor.printPColor(p, color);
-    PColor.printHexColor(color);
 
     // Print grid coordinate clicked
     if(currentGrid != null){

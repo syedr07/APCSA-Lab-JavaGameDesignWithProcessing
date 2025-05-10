@@ -27,7 +27,7 @@ public class HexGrid {
     private HexTile[][] map;
     private int defaultOutlineColor = 0xFFFFFF; // #FFFFFF;	//WHITE
     private int defaultFillColor = 0x000000; // #000000; 		//BLACK
-	private int defaultBgColor = PColor.getPColor(164,200,218);
+	private int defaultBgColor = PColor.get(164,200,218);
 	
 	private boolean bgSet = false;
 
