@@ -126,6 +126,12 @@ public class Game extends PApplet{
     b1.setButtonColor(PColor.BLACK);
     b1.setHoverColor(PColor.get(100,50,200));
     b1.setOutlineColor(PColor.WHITE);
+    // b1.setFontStyle("fonts/spidermanFont.ttf");
+    // b1.setFontStyle("Helvetica");
+    b1.setTextColor(PColor.WHITE);
+    b1.setButtonColor(PColor.BLACK);
+    b1.setHoverColor(PColor.get(100,50,200));
+    b1.setOutlineColor(PColor.WHITE);
 
     System.out.println("Done loading Level 1 ...");
     
@@ -235,6 +241,7 @@ public class Game extends PApplet{
     // Display color of pixel clicked
     int color = p.get(p.mouseX, p.mouseY);
     PColor.printPColor(p, color);
+    PColor.printPColor(p, color);
 
     // Print grid coordinate clicked
     if(currentGrid != null){
@@ -242,6 +249,10 @@ public class Game extends PApplet{
     }
 
     // what to do if clicked? (ex. assign a new location to player1)
+    if(currentScreen == level1Grid){
+      player1Row = currentGrid.getGridLocation().getRow();
+      player1Col = currentGrid.getGridLocation().getCol();
+    }
     if(currentScreen == level1Grid){
       player1Row = currentGrid.getGridLocation().getRow();
       player1Col = currentGrid.getGridLocation().getCol();

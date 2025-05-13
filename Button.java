@@ -91,11 +91,11 @@ public class Button {
             if(shape.equals("CIRCLE")){
                 p.ellipseMode(p.CENTER);
                 p.ellipse(shapeX, shapeY, shapeW, shapeH);
-            //     System.out.println("circle shape");
+            //     System.out.println("CIRCLE shape");
             } else if(shape.equals("RECT")){
                 p.rectMode(p.CENTER);
                 p.rect(shapeX, shapeY, shapeW, shapeH, shapeRounding, shapeRounding, shapeRounding, shapeRounding);
-                // System.out.println("rect shape");
+                // System.out.println("RECT shape");
             } else {
                 System.out.println("Wrong shape String.  Type \"RECT\" or \"CIRCLE\"");
                 return;
@@ -185,6 +185,7 @@ public class Button {
         if(color != null){
             setHoverHighlight(true);
             this.hoverColor = color;
+            this.hoverColor = color;
         } else {
             setHoverHighlight(false);
         }
@@ -200,10 +201,12 @@ public class Button {
         if(color != null){
             setClickHighlight(true);
             this.clickColor = color;
+            this.clickColor = color;
         } else {
             setClickHighlight(false);
         }
     }
+
     public void setVisible(boolean visible){
         this.isVisible = visible;
     }

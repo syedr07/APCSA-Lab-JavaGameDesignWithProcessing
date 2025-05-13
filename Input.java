@@ -68,4 +68,15 @@ public class Input{
 	// 	JOptionPane.showMessageDialog(null, messageText, "Important message!", JOptionPane.PLAIN_MESSAGE);
 	// }
 
+    // /**
+	//  * Generates a pop-up message that can be closed
+	//  * @param questionText String prompt for the user
+	//  * 						(Hint: Use new line escape characters (\n) in your String
+	//  * 						if it is too long to fit neatly into the box.
+	//  */
+	// public void message(String messageText){
+    //     System.out.println(messageText);
+	// 	JOptionPane.showMessageDialog(null, messageText, "Important message!", JOptionPane.PLAIN_MESSAGE);
+	// }
+
 }
