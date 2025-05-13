@@ -1,7 +1,8 @@
 /* Button Class - Used to add a button into a Game
  * Author: Joel Bianchi
- * Last Edit: 5/10/25
+ * Last Edit: 5/13/25
  * PColor edits
+ * Capital Letter bug fix
  */
 
 import processing.core.PApplet;
@@ -58,7 +59,7 @@ public class Button {
         this.currentColor = baseColor;
         this.outlineColor = PColor.BLACK;
         this.isVisible = true;
-        this.font = p.createFont("Helvetica", fontSize); //"Helvetica", "Georgia"
+        this.font = p.createFont("fonts/Helvetica", fontSize); //"Helvetica", "Georgia"
     }
 
 
@@ -124,9 +125,9 @@ public class Button {
     }
     
     public boolean isMouseOverButton(){ //move to Sprite class eventually
-        if(shape.equals("rect")){
+        if(shape.equals("RECT")){
             return isOverRect();
-        } else if(shape.equals("circle")){
+        } else if(shape.equals("CIRCLE")){
             return isOverCircle();
         } else {
             return false;

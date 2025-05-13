@@ -1,7 +1,7 @@
 /* Screen class - a high level class that handles background screens & millisecond timing
  * Has a World Subclass
  * Author: Joel Bianchi & Carey Jiang
- * Last Edit: 5/10/25
+ * Last Edit: 5/13/25
  * Comment Revisions
  */
 
@@ -31,9 +31,10 @@ public class Screen{
         this.setName(screenName);
         if(bg != null) {
             this.setBg(bg);
+            System.out.println("bg of " + screenName + " Screen: " + Util.toStringPImage(bg));
         }
-        System.out.println("bg of " + screenName + " Screen: " + Util.toStringPImage(bg));
         startTime = getTotalTime(); //?
+
     }
 
     // Screen Constructor #2: For background images that move - Takes String (Coded as a Sprite, not a Processing background PImage)
@@ -125,9 +126,15 @@ public class Screen{
     public void show(){
         if(isMoveable){
             mbg.show();
+        } else if(bg != null){
+            p.background(bg);
         }
     }
 
+    // Returns distance to right edge for a moveable background -CAREY JIANG 2024
+    public float distToRightEdge(){
+        return (mbg.getW() - p.width) + (mbg.getLeft());
+    }
 
 
     //------------------ SCREEN TIME METHODS --------------------//

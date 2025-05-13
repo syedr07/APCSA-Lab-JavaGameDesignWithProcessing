@@ -1,7 +1,7 @@
-/* Color class - provides static variables and methods for Processing colors
+/* PColor class - provides static variables and methods for Processing colors
  * Author: Joel Bianchi
- * Last Edit: 5/10/25
- * Renamed from Color to PColor to differentiate from Java's Color class
+ * Last Edit: 5/13/25
+ * Added RGB accessors
  */
 
 import processing.core.PApplet;
@@ -34,6 +34,19 @@ public class PColor {
         int blue = Integer.parseInt(hexString.substring(hashIndex+5, hashIndex+7), 16);
         return get(red, green, blue);        
     }
+
+    // Returns individual RGB values (or use p.red() )
+    public static int getRed(PApplet p, int color){
+        return (int)p.red(color);
+    }
+    public static int getGreen(PApplet p, int color){
+        return (int)p.green(color);
+    }
+    public static int getBlue(PApplet p, int color){
+        return (int)p.blue(color);
+    }
+
+
 
     // Prints out a Processing color int with RGB and Hex notations
     public static void printPColor(PApplet p, int color){

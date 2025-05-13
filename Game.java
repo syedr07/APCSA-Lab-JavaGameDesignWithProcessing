@@ -1,7 +1,7 @@
 /* Game Class Starter File
  * Authors: Joel A. Bianchi
- * Last Edit: 5/10/25
- * PColor edits
+ * Last Edit: 5/13/25
+ * using new Screen show method
  */
 
 //import processing.sound.*;
@@ -271,9 +271,7 @@ public class Game extends PApplet{
   public void updateScreen(){
 
     // UPDATE: Background of the current Screen
-    if(!currentScreen.getIsMoveable() ){
-      p.background(currentScreen.getBgImage());
-    }
+    currentScreen.show();
 
     // UPDATE: splashScreen
     if(currentScreen == splashScreen && splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
