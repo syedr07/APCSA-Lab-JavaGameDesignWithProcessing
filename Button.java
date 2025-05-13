@@ -95,7 +95,7 @@ public class Button {
             } else if(shape.equals("RECT")){
                 p.rectMode(p.CENTER);
                 p.rect(shapeX, shapeY, shapeW, shapeH, shapeRounding, shapeRounding, shapeRounding, shapeRounding);
-                // System.out.println("rect shape");
+                // System.out.println("RECT shape");
             } else {
                 System.out.println("Wrong shape String.  Type \"RECT\" or \"CIRCLE\"");
                 return;
