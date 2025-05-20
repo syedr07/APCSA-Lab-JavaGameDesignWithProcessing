@@ -2,6 +2,7 @@
  * Authors: Joel A. Bianchi
  * Last Edit: 5/20/25
  * using new Screen show method
+ * Eliminate usage of currentWorld & currentGrid
  */
 
 //import processing.sound.*;
@@ -38,6 +39,7 @@ public class Game extends PApplet{
   PImage player1;   // Use PImage to display the image in a GridLocation
   int player1Row = 3;
   int player1Col = 0;
+  String player2File = "images/yellowhorse.png";
   int player2Row = 0;
   int player2Col = 2;
   int health = 3;
@@ -61,8 +63,6 @@ public class Game extends PApplet{
 
   // VARIABLES: Tracking the current Screen being displayed
   Screen currentScreen;
-  World currentWorld;
-  Grid currentGrid;
   private int msElapsed = 0;
 
   boolean start = true;
@@ -100,9 +100,9 @@ public class Game extends PApplet{
     endBg.resize(p.width, p.height);
 
     //SETUP: Screens, Worlds, Grids
-    splashScreen = new Screen(p, "splash", splashBg);
-    level1Grid = new Grid(p, "chessBoard", level1Bg, 6, 8);
-    //level1Grid.startPrintingGridMarks();
+    splashScreen = new Screen(this, "splash", splashBg);
+    level1Grid = new Grid(this, "chessBoard", level1Bg, 6, 8);
+    // level1Grid.startPrintingGridMarks();
     level2World = new World(p, "sky", level2Bg, 4.0f, 0.0f, -800.0f); //moveable World constructor --> defines center & scale (x, scale, y)???
     System.out.println( "World constructed: " + Util.toStringPImage(level2World.getBgImage()));
        
@@ -206,9 +206,6 @@ public class Game extends PApplet{
         //Toggle the animation on & off
         doAnimation = !doAnimation;
         System.out.println("doAnimation: " + doAnimation);
-        if(currentGrid != null){
-          currentGrid.setMark("X",currentGrid.getGridLocation());
-        }
       }
 
 
@@ -237,14 +234,19 @@ public class Game extends PApplet{
     PColor.printPColor(p, color);
 
     // Print grid coordinate clicked
-    if(currentGrid != null){
-      System.out.println("Grid location --> " + currentGrid.getGridLocation());
+    if(currentScreen instanceof Grid){
+      System.out.println("Grid location --> " + ((Grid) currentScreen).getGridLocation());
+    }
+
+    // "Mark" the grid coordinate to track the state of the Grid
+    if(currentScreen instanceof Grid){
+      ((Grid) currentScreen).setMark("X",((Grid) currentScreen).getGridLocation());
     }
 
     // what to do if clicked? (ex. assign a new location to player1)
     if(currentScreen == level1Grid){
-      player1Row = currentGrid.getGridLocation().getRow();
-      player1Col = currentGrid.getGridLocation().getCol();
+      player1Row = level1Grid.getGridLocation().getRow();
+      player1Col = level1Grid.getGridLocation().getCol();
     }
     
 
@@ -260,7 +262,7 @@ public class Game extends PApplet{
 
     if(!isGameOver()) {
       //set the title each loop
-      // p.surface.setTitle(titleText + "    " + extraText + " " + name + ": " + health);
+      // surface.setTitle(titleText + "    " + extraText + " " + name + ": " + health);
 
       //adjust the extra text as desired
     
@@ -290,7 +292,6 @@ public class Game extends PApplet{
 
       // Print a '1' in console when level1
       System.out.print("1");
-      currentGrid = level1Grid;
 
       // Displays the player1 image
       GridLocation player1Loc = new GridLocation(player1Row,player1Col);
@@ -315,13 +316,8 @@ public class Game extends PApplet{
       // Print a '2' in console when level2
       System.out.print("2");
 
-      currentWorld = level2World;
-      // currentGrid = null;
-
       level2World.moveBgXY(-3.0f, 0f);
-      // level2World.show();
       player3.show();
-      level2World.showWorldSprites();
 
     }
 
