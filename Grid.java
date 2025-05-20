@@ -1,7 +1,7 @@
 /* Grid Class - Used for rectangular-tiled games
  * A 2D array of GridTiles which can be marked
  * Subclass of World that can show all Images & Sprites
- * Author: Joel Bianchi & RJ Morel
+ * Author: Syed Rahman, Krishnendu Barman 
  * Last Edit: 5/8/25
  * Updated to Java version
  */
