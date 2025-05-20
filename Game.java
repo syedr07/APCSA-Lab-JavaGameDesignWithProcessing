@@ -31,8 +31,8 @@ public class Game extends PApplet{
   //SoundFile song;
 
   // VARIABLES: Level1Grid Screen
-  Grid level1Grid;
-  String level1BgFile = "images/chess.jpg";
+  World world1;
+  String level1BgFile = "images/carbg.png";
   PImage level1Bg;
   String player1File = "images/x_wood.png";
   PImage player1;   // Use PImage to display the image in a GridLocation
@@ -101,7 +101,7 @@ public class Game extends PApplet{
 
     //SETUP: Screens, Worlds, Grids
     splashScreen = new Screen(this, "splash", splashBg);
-    level1Grid = new Grid(this, "chessBoard", level1Bg, 6, 8);
+    world1 = new World(p, "track", level1Bg);
     //level1Grid.startPrintingGridMarks();
     level2World = new World(p, "sky", level2Bg, 4.0f, 0.0f, -800.0f); //moveable World constructor --> defines center & scale (x, scale, y)???
     System.out.println( "World constructed: " + Util.toStringPImage(level2World.getBgImage()));
@@ -113,11 +113,11 @@ public class Game extends PApplet{
     //SETUP: All Game objects
     runningHorse = new AnimatedSprite(this, "sprites/horse_run.png", "sprites/horse_run.json", 50.0f, 75.0f, 10.0f);
 
+
     //SETUP: Level 1
     player1 = p.loadImage(player1File);
-    player1.resize(level1Grid.getTileWidth(),level1Grid.getTileHeight());
+
     player2 = new AnimatedSprite(this, "sprites/chick_walk.png", "sprites/chick_walk.json", 0.0f, 0.0f, 5.0f);
-    level1Grid.setTileSprite(new GridLocation (player2Row, player2Col), player2);
 
     b1 = new Button(this, "rect", 625, 525, 150, 50, "GoTo Level 2");
     // b1.setFontStyle("fonts/spidermanFont.ttf");
@@ -181,7 +181,7 @@ public class Game extends PApplet{
     //What to do when a key is pressed?
     
     //KEYS FOR LEVEL1
-    if(currentScreen == level1Grid){
+    if(currentScreen == world1){
 
       //set [W] key to move the player1 up & avoid Out-of-Bounds errors
       if(p.keyCode == 87){
@@ -218,7 +218,7 @@ public class Game extends PApplet{
     //CHANGING SCREENS BASED ON KEYS
     //change to level1 if 1 key pressed, level2 if 2 key is pressed
     if(p.key == '1'){
-      currentScreen = level1Grid;
+      currentScreen = world1;
     } else if(p.key == '2'){
       currentScreen = level2World;
     }
@@ -242,7 +242,7 @@ public class Game extends PApplet{
     }
 
     // what to do if clicked? (ex. assign a new location to player1)
-    if(currentScreen == level1Grid){
+    if(currentScreen == world1){
       player1Row = currentGrid.getGridLocation().getRow();
       player1Col = currentGrid.getGridLocation().getCol();
     }
@@ -272,30 +272,26 @@ public class Game extends PApplet{
 
     // UPDATE: Background of the current Screen
     currentScreen.show();
-
     // UPDATE: splashScreen
     if(currentScreen == splashScreen && splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
       System.out.print("s");
-      currentScreen = level1Grid;
+      currentScreen = world1;
     }
 
     // UPDATE: level1Grid Screen
-    if(currentScreen == level1Grid){
+    if(currentScreen == world1){
       System.out.print("1");
-      currentGrid = level1Grid;
 
-      // Displays the player1 image
-      GridLocation player1Loc = new GridLocation(player1Row,player1Col);
-      level1Grid.setTileImage(player1Loc, player1);
+      // // Displays the player1 image
+      // GridLocation player1Loc = new GridLocation(player1Row,player1Col);
+      // world1.setTileImage(player1Loc, player1);
 
-      // Displays the player2 image
-      GridLocation player2Loc = new GridLocation(player2Row, player2Col);
-      level1Grid.setTileSprite(player2Loc, player2);
+      // // Displays the player2 image
+      // GridLocation player2Loc = new GridLocation(player2Row, player2Col);
+      // world1.setTileSprite(player2Loc, player2);
       
       // Updates other screen elements
-      level1Grid.showGridImages();
-      level1Grid.showGridSprites();
-      level1Grid.showWorldSprites();
+      world1.showWorldSprites();
 
       // Moves to next level based on a button click
       b1.show();
