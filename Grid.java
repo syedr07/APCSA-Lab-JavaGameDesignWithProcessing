@@ -1,9 +1,9 @@
 /* Grid Class - Used for rectangular-tiled games
  * A 2D array of GridTiles which can be marked
  * Subclass of World that can show all Images & Sprites
- * Author: Syed Rahman, Krishnendu Barman 
- * Last Edit: 5/8/25
- * Updated to Java version
+ * Author: Joel Bianchi & RJ Morel
+ * Last Edit: 5/20/25
+ * Added show method to Grid
  */
 
 
@@ -233,6 +233,14 @@ public class Grid extends World{
   public void showImages(){
     showGridImages();
   }
+
+  // Displays all World + Screen + Grid visuals
+  public void show(){
+    super.show();
+    this.showGridImages();
+    this.showGridSprites();
+  }
+
 
 
   //------------------  GRID SPRITES METHODS --------------------//
