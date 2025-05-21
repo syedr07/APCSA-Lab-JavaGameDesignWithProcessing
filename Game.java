@@ -18,7 +18,6 @@ public class Game extends PApplet{
 
   // VARIABLES: Processing variable to do Processing things
   PApplet p;
-  CycleTimer slowCycleTimer;
 
   // VARIABLES: Title Bar
   String titleText = "PeanutChessSkyHorse2";
@@ -74,7 +73,7 @@ public class Game extends PApplet{
 
   // VARIABLES: Tracking the current Screen being displayed
   Screen currentScreen;
-  private int msElapsed = 0;
+  CycleTimer slowCycleTimer;
 
   boolean start = true;
 
@@ -111,8 +110,8 @@ public class Game extends PApplet{
     endBg.resize(p.width, p.height);
 
     //SETUP: Screens, Worlds, Grids
-    splashScreen = new Screen(this, "splash", splashBg);
-    level1Grid = new Grid(this, "chessBoard", level1Bg, 6, 8);
+    splashScreen = new Screen(p, "splash", splashBg);
+    level1Grid = new Grid(p, "chessBoard", level1Bg, 6, 8);
     // level1Grid.startPrintingGridMarks();
     level2World = new World(p, "sky", level2BgFile, 4.0f, 0.0f, -800.0f); //moveable World constructor --> defines center & scale (x, scale, y)???
     
