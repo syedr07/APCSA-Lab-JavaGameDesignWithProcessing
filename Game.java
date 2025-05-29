@@ -34,7 +34,7 @@ public class Game extends PApplet{
   World world1;
   String world1BgFile = "images/carbg.png";
   PImage world1Bg;
-  String player1File = "images/barrierObject.png";
+  String player1File = "images/carObject.png";
   PImage player1;   // Use PImage to display the image in a GridLocation
   AnimatedSprite chick;
   String chickFile = "sprites/chick_walk.png";
@@ -50,7 +50,7 @@ public class Game extends PApplet{
 
   // VARIABLES: endScreen
   World endScreen;
-  String endBgFile = "images/carObject.png";
+  String endBgFile = "images/gameOver.png";
   PImage endBg;
 
 
