@@ -18,42 +18,37 @@ public class Game extends PApplet{
   // VARIABLES: Title Bar
   String titleText = "Carcing";
   String extraText = "CurrentLevel?";
-  String name = "";
+  String name = "Undefined";
 
   // VARIABLES: Whole Game
   AnimatedSprite runningHorse;
   boolean doAnimation;
 
-  // VARIABLES: Splash Screen
+  // VARIABLES: splashScreen
   Screen splashScreen;
   PImage splashBg;
   String splashBgFile = "images/startingScreen.jpg";
   //SoundFile song;
 
-  // VARIABLES: Level1Grid Screen
+  // VARIABLES: world1Grid Screen
   World world1;
-  String level1BgFile = "images/carbg.png";
-  PImage level1Bg;
+  String world1BgFile = "images/carbg.png";
+  PImage world1Bg;
   String player1File = "images/barrierObject.png";
   PImage player1;   // Use PImage to display the image in a GridLocation
+  AnimatedSprite chick;
+  String chickFile = "sprites/chick_walk.png";
+  String chickJson = "sprites/chick_walk.json";
   int player1Row = 3;
   int player1Col = 0;
   int player2Row = 5;
   int player2Col = 5;
   int health = 3;
-  AnimatedSprite player2;
   Button b1;
 
-  // VARIABLES: Level2World Pixel-based Screen
-  World level2World;
-  String level2BgFile = "images/carbg.png";
-  PImage level2Bg;
-  String player3File = "images/main car.png";
-  Sprite player3; //Use Sprite for a pixel-based Location
-  int player3startX = 50;
-  int player3startY = 300;
 
-  // VARIABLES: EndScreen
+
+  // VARIABLES: endScreen
   World endScreen;
   String endBgFile = "images/carObject.png";
   PImage endBg;
@@ -61,9 +56,7 @@ public class Game extends PApplet{
 
   // VARIABLES: Tracking the current Screen being displayed
   Screen currentScreen;
-  World currentWorld;
-  Grid currentGrid;
-  private int msElapsed = 0;
+  CycleTimer slowCycleTimer;
 
   boolean start = true;
 
@@ -91,51 +84,29 @@ public class Game extends PApplet{
 
     //SETUP: Load BG images used in all screens
     splashBg = p.loadImage(splashBgFile);
-    splashBg.resize(p.width, p.height);
-    level1Bg = p.loadImage(level1BgFile);
-    level1Bg.resize(p.width, p.height);
-    level2Bg = p.loadImage(level2BgFile);
-    //level2Bg.resize(p.width, p.height);
+    world1Bg = p.loadImage(world1BgFile);
     endBg = p.loadImage(endBgFile);
-    endBg.resize(p.width, p.height);
 
-    //SETUP: Screens, Worlds, Grids
+    //SETUP: If non-moving, Resize all BG images to exactly match the screen size
+    splashBg.resize(p.width, p.height);
+    endBg.resize(p.width, p.height);   
+
+    //SETUP: World1
     splashScreen = new Screen(this, "splash", splashBg);
-    world1 = new World(p, "track", level1Bg);
-    //level1Grid.startPrintingGridMarks();
-    level2World = new World(p, "sky", level2BgFile, 4.0f, 0.0f, -800.0f); //moveable World constructor --> defines center & scale (x, scale, y)???
-    System.out.println( "World constructed: " + Util.toStringPImage(level2World.getBgImage()));
+    world1 = new World(p, "track", world1BgFile, 4.0f, 0.0f, -800.0f); //moveable World constructor --> defines center & scale (x, scale, y)???
+    System.out.println( "World constructed: " + Util.toStringPImage(world1.getBgImage()));
        
     // level2World = new World("sky", level2Bg);   //non-moving World construtor
     endScreen = new World(this, "end", endBg);
     currentScreen = splashScreen;
 
-    //SETUP: All Game objects
-    runningHorse = new AnimatedSprite(this, "sprites/horse_run.png", "sprites/horse_run.json", 50.0f, 75.0f, 10.0f);
+    //SETUP: Construct Game objects used in All Screens
+    runningHorse = new AnimatedSprite(p, "sprites/horse_run.png", "sprites/horse_run.json", 50.0f, 75.0f, 1.0f);
+
+    //SETUP: Setup more world1 objects
+    chick = new AnimatedSprite(p, chickFile, chickJson, 0.0f, 0.0f, 0.5f);
 
 
-    //SETUP: Level 1
-    player1 = p.loadImage(player1File);
-
-    player2 = new AnimatedSprite(this, "sprites/chick_walk.png", "sprites/chick_walk.json", 0.0f, 0.0f, 5.0f);
-
-    b1 = new Button(this, "rect", 625, 525, 150, 50, "GoTo Level 2");
-    // b1.setFontStyle("fonts/spidermanFont.ttf");
-    // b1.setFontStyle("Helvetica");
-    b1.setTextColor(PColor.WHITE);
-    b1.setButtonColor(PColor.BLACK);
-    b1.setHoverColor(PColor.get(100,50,200));
-    b1.setOutlineColor(PColor.WHITE);
-
-    System.out.println("Done loading Level 1 ...");
-    
-    //SETUP: Level 2
-    player3 = new Sprite(this, player3File, 0.25f);
-    player3.moveTo(player3startX, player3startY);
-    level2World.addSpriteCopyTo(runningHorse, 100, 200);  //example Sprite added to a World at a location, with a speed
-    level2World.printWorldSprites();
-    System.out.println("Done loading Level 2 ...");
-    
     //SETUP: Sound
     // Load a soundfile from the sounds folder of the sketch and play it back
      //song = new SoundFile(this, "sounds/Lenny_Kravitz_Fly_Away.mp3");
@@ -150,19 +121,27 @@ public class Game extends PApplet{
   //(Anything drawn on the screen should be called from here)
   public void draw() {
 
+    // DRAW LOOP: Update Screen Visuals
     updateTitleBar();
     updateScreen();
 
-    //simple timing handling
-    if (msElapsed % 300 == 0) {
-      //sprite handling
+    // DRAW LOOP: Set Timers
+    int cycleTime = 1;  //milliseconds
+    int slowCycleTime = 300;  //milliseconds
+    if(slowCycleTimer == null){
+      slowCycleTimer = new CycleTimer(p, slowCycleTime);
+    }
+
+    // DRAW LOOP: Populate & Move Sprites
+    if(slowCycleTimer.isDone()){
       populateSprites();
       moveSprites();
     }
-    msElapsed +=100;
-    currentScreen.pause(100);
 
-    //check for end of game
+    // DRAW LOOP: Pause Game Cycle
+    currentScreen.pause(cycleTime);   // slows down the game cycles
+
+    // DRAW LOOP: Check for end of game
     if(isGameOver()){
       endGame();
     }
@@ -180,20 +159,13 @@ public class Game extends PApplet{
 
     //What to do when a key is pressed?
     
-    //KEYS FOR LEVEL1
+    //KEYS FOR world1
     if(currentScreen == world1){
 
-      //set [W] key to move the player1 up & avoid Out-of-Bounds errors
-      if(p.keyCode == 87){
-      
-        //Store old GridLocation
-        GridLocation oldLoc = new GridLocation(player2Row, player2Col);
-        
-        //Erase image from previous location
-        
+      //set [S] key to move the chick down & avoid Out-of-Bounds errors
+      if(p.keyCode == 83){        
 
-        //change the field for player2Row
-        player2Row--;
+
       }
 
       // if the 'n' key is pressed, ask for their name
@@ -206,23 +178,21 @@ public class Game extends PApplet{
         //Toggle the animation on & off
         doAnimation = !doAnimation;
         System.out.println("doAnimation: " + doAnimation);
-        if(currentGrid != null){
-          currentGrid.setMark("X",currentGrid.getGridLocation());
-        }
       }
 
 
 
     }
 
+
+
     //CHANGING SCREENS BASED ON KEYS
-    //change to level1 if 1 key pressed, level2 if 2 key is pressed
+    //change to world1 if 1 key pressed, level2 if 2 key is pressed
     if(p.key == '1'){
       currentScreen = world1;
-    } else if(p.key == '2'){
-      currentScreen = level2World;
+    } else if(p.key == 'e'){
+      currentScreen = endScreen;
     }
-
 
   }
 
@@ -236,18 +206,15 @@ public class Game extends PApplet{
     int color = p.get(p.mouseX, p.mouseY);
     PColor.printPColor(p, color);
 
-    // Print grid coordinate clicked
-    if(currentGrid != null){
-      System.out.println("Grid location --> " + currentGrid.getGridLocation());
-    }
-
     // what to do if clicked? (ex. assign a new location to player1)
     if(currentScreen == world1){
-      player1Row = currentGrid.getGridLocation().getRow();
-      player1Col = currentGrid.getGridLocation().getCol();
+
+
+
+
+
     }
     
-
 
   }
 
@@ -259,8 +226,11 @@ public class Game extends PApplet{
   public void updateTitleBar(){
 
     if(!isGameOver()) {
+
+      extraText = currentScreen.getName();
+
       //set the title each loop
-      // p.surface.setTitle(titleText + "    " + extraText + " " + name + ": " + health);
+      surface.setTitle(titleText + "\t// CurrentScreen: " + extraText + " \t // Name: " + name + "\t // Health: " + health );
 
       //adjust the extra text as desired
     
@@ -275,50 +245,28 @@ public class Game extends PApplet{
     // UPDATE: splashScreen
     if(currentScreen == splashScreen && splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
       System.out.print("s");
+
+      // Change the screen to level 1 between 3 and 5 seconds
+      if(splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
       currentScreen = world1;
+      }
     }
 
-    // UPDATE: level1Grid Screen
+    // UPDATE: world1 Screen
     if(currentScreen == world1){
       System.out.print("1");
 
-      // // Displays the player1 image
-      // GridLocation player1Loc = new GridLocation(player1Row,player1Col);
-      // world1.setTileImage(player1Loc, player1);
-
-      // // Displays the player2 image
-      // GridLocation player2Loc = new GridLocation(player2Row, player2Col);
-      // world1.setTileSprite(player2Loc, player2);
-      
-      // Updates other screen elements
+      // world1.moveBgXY(-3.0f, 0f);
+      world1.show();
+      chick.show();
       world1.showWorldSprites();
-
-      // Moves to next level based on a button click
-      b1.show();
-      if(b1.isClicked()){
-        System.out.println("\nButton Clicked");
-        currentScreen = level2World;
-      }
-    
-    }
-    
-    // UPDATE: level2World Screen
-    if(currentScreen == level2World){
-      System.out.print("2");
-      currentWorld = level2World;
-      // currentGrid = null;
-
-      level2World.moveBgXY(-3.0f, 0f);
-      level2World.show();
-      player3.show();
-      level2World.showWorldSprites();
 
     }
 
     // UPDATE: End Screen
-    // if(currentScreen == endScreen){
+    if(currentScreen == endScreen){
 
-    // }
+    }
 
     // UPDATE: Any Screen
     if(doAnimation){
@@ -353,13 +301,13 @@ public class Game extends PApplet{
 
         //Store the next GridLocation
 
-        //Check if the current tile has an image that is not player1      
+        //Check if the current tile has an image that is not piece1      
 
 
           //Get image/sprite from current location
             
 
-          //CASE 1: Collision with player1
+          //CASE 1: Collision with piece1
 
 
           //CASE 2: Move enemy over to new location
