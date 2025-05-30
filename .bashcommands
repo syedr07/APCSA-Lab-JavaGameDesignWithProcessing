@@ -1,0 +1,17 @@
+# CLONE EACH & SET starter AS ALTERNATE REMOTE REPO
+# git remote -v
+# git remote add starter https://github.com/JABianchi/JavaGameDesignWithProcessing.git 
+
+# UPDATE STUDENT PROJECT WITH NEW CHANGES
+# git pull
+# git fetch starter main
+# git merge starter/main
+# git push
+
+# MERGE CHANGES FROM demo BRANCH INTO main BRANCH
+# git checkout main
+# git merge –squash demo
+
+# CREATE NEW JAVADOC
+# javadoc -d docs -classpath "C:\Program Files\processing\core\library\core.jar" "*.java"
+
