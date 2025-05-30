@@ -13,5 +13,7 @@
 # git merge –squash demo
 
 # CREATE NEW JAVADOC
-# javadoc -d docs -classpath "C:\Program Files\processing\core\library\core.jar" "*.java"
+# javadoc -d javadoc -classpath "C:\Program Files\processing\core\library\core.jar" "*.java"
 
+# JAVADOC SITE
+# https://jabianchi.github.io/APCSA-Lab-JavaGameDesignWithProcessing/javadoc/package-summary.html
