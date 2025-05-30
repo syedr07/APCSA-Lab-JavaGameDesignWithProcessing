@@ -93,10 +93,8 @@ public class Game extends PApplet{
 
     //SETUP: World1
     splashScreen = new Screen(this, "splash", splashBg);
-    world1 = new World(p, "track", world1BgFile, 4.0f, 0.0f, -800.0f); //moveable World constructor --> defines center & scale (x, scale, y)???
-    System.out.println( "World constructed: " + Util.toStringPImage(world1.getBgImage()));
-       
-    // level2World = new World("sky", level2Bg);   //non-moving World construtor
+    world1 = new World(p, "track", world1BgFile, 5.0f, 0.0f, -800.0f); //moveable World constructor --> defines center & scale (x, scale, y)???
+    // System.out.println( "World constructed: " + Util.toStringPImage(world1.getBgImage()));
     endScreen = new World(this, "end", endBg);
     currentScreen = splashScreen;
 
@@ -105,7 +103,7 @@ public class Game extends PApplet{
 
     //SETUP: Setup more world1 objects
     chick = new AnimatedSprite(p, chickFile, chickJson, 0.0f, 0.0f, 0.5f);
-
+    world1.addSprite(chick);
 
     //SETUP: Sound
     // Load a soundfile from the sounds folder of the sketch and play it back
@@ -240,31 +238,35 @@ public class Game extends PApplet{
   // Updates what is drawn on the screen each frame
   public void updateScreen(){
 
-    // UPDATE: Background of the current Screen
-    currentScreen.show();
+    // UPDATE: first lay down the Background
+    currentScreen.showBg();
+
     // UPDATE: splashScreen
-    if(currentScreen == splashScreen && splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
+    if(currentScreen == splashScreen){
+
+      // Print an s in console when splashscreen is up
       System.out.print("s");
 
       // Change the screen to level 1 between 3 and 5 seconds
       if(splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
-      currentScreen = world1;
+        currentScreen = world1;
       }
     }
 
     // UPDATE: world1 Screen
     if(currentScreen == world1){
+
+      // Print a '1' in console when world1
       System.out.print("1");
 
       // world1.moveBgXY(-3.0f, 0f);
-      world1.show();
-      chick.show();
-      world1.showWorldSprites();
+      // chick.show();
 
     }
 
     // UPDATE: End Screen
     if(currentScreen == endScreen){
+      System.out.print("e");
 
     }
 
@@ -273,6 +275,8 @@ public class Game extends PApplet{
       runningHorse.animateHorizontal(5.0f, 10.0f, true);
     }
 
+    // UPDATE: Other built-in to current World/Grid/HexGrid
+    currentScreen.show();
 
   }
 
