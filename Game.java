@@ -35,7 +35,7 @@ public class Game extends PApplet{
   String world1BgFile = "images/carbg.png";
   PImage world1Bg;
   String player1File = "images/carObject.png";
-  PImage player1;   // Use PImage to display the image in a GridLocation
+  Sprite player1;   // Use PImage to display the image in a GridLocation
   AnimatedSprite chick;
   String chickFile = "sprites/chick_walk.png";
   String chickJson = "sprites/chick_walk.json";
@@ -91,6 +91,7 @@ public class Game extends PApplet{
     splashBg.resize(p.width, p.height);
     endBg.resize(p.width, p.height);   
     world1Bg.resize(p.width, p.height);
+
     //SETUP: World1
     splashScreen = new Screen(this, "splash", splashBg);
     world1 = new World(p, "track", world1BgFile, 3.5f, -65.0f, 0.0f); //moveable World constructor --> defines center & scale (x, scale, y)???
@@ -102,8 +103,12 @@ public class Game extends PApplet{
     runningHorse = new AnimatedSprite(p, "sprites/horse_run.png", "sprites/horse_run.json", 50.0f, 75.0f, 1.0f);
 
     //SETUP: Setup more world1 objects
-    chick = new AnimatedSprite(p, chickFile, chickJson, 0.0f, 0.0f, 0.5f);
-    world1.addSprite(chick);
+    //chick = new AnimatedSprite(p, chickFile, chickJson, 0.0f, 0.0f, 0.5f);
+    //world1.addSprite(chick);
+    player1 = new Sprite(p, player1File);
+    world1.addSprite(player1);
+    player1 = new Sprite(p, "images/carObject.png", 1.0f, 500f, 160f);
+    
 
     //SETUP: Sound
     // Load a soundfile from the sounds folder of the sketch and play it back
@@ -179,7 +184,9 @@ public class Game extends PApplet{
       }
 
 
-
+      if (p.keyCode == 39){
+      player1.move(100f, 0f);
+      }
     }
 
 
