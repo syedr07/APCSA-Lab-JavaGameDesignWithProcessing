@@ -66,7 +66,7 @@ public class Game extends PApplet{
   // Processing method that runs once for screen resolution settings
   public void settings() {
     //SETUP: Match the screen size to the background image size
-    size(800,600);  //these will automatically be saved as width & height
+    size(550,700);  //these will automatically be saved as width & height
 
     // Allows p variable to be used by other classes to access PApplet methods
     p = this;
@@ -90,10 +90,10 @@ public class Game extends PApplet{
     //SETUP: If non-moving, Resize all BG images to exactly match the screen size
     splashBg.resize(p.width, p.height);
     endBg.resize(p.width, p.height);   
-
+    world1Bg.resize(p.width, p.height);
     //SETUP: World1
     splashScreen = new Screen(this, "splash", splashBg);
-    world1 = new World(p, "track", world1BgFile, 5.0f, 0.0f, -800.0f); //moveable World constructor --> defines center & scale (x, scale, y)???
+    world1 = new World(p, "track", world1BgFile, 3.5f, -65.0f, 0.0f); //moveable World constructor --> defines center & scale (x, scale, y)???
     // System.out.println( "World constructed: " + Util.toStringPImage(world1.getBgImage()));
     endScreen = new World(this, "end", endBg);
     currentScreen = splashScreen;
@@ -207,12 +207,11 @@ public class Game extends PApplet{
     // what to do if clicked? (ex. assign a new location to player1)
     if(currentScreen == world1){
 
-
-
-
-
     }
-    
+
+   if (currentScreen == splashScreen){
+    currentScreen = world1;
+   }
 
   }
 
@@ -248,9 +247,9 @@ public class Game extends PApplet{
       System.out.print("s");
 
       // Change the screen to level 1 between 3 and 5 seconds
-      if(splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
-        currentScreen = world1;
-      }
+      // if(splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
+      //   currentScreen = world1;
+      // }
     }
 
     // UPDATE: world1 Screen
