@@ -41,6 +41,8 @@ public class Game extends PApplet{
   String chickJson = "sprites/chick_walk.json";
   Sprite car; 
   String carObject = "images/carObject.png"; 
+  Sprite barrier;
+  String barrierObject = "images/barrierObject.png";
   int player1Row = 3;
   int player1Col = 0;
   int player2Row = 5;
@@ -109,6 +111,9 @@ public class Game extends PApplet{
     car = new Sprite (p, "images/carObject.png", 1.0f, 175, 475);
     car.resize(100, 200);
     world1.addSprite(car);
+    barrier = new Sprite(p, "Images/barrierObject.png" );
+    world1.addSprite(barrier);
+  
 
     //SETUP: Sound
     // Load a soundfile from the sounds folder of the sketch and play it back
@@ -121,7 +126,7 @@ public class Game extends PApplet{
 
 
   //Required Processing method that automatically loops
-  //(Anything drawn on the screen should be called from here)
+  //(Anything wwn on the screen should be called from here)
   public void draw() {
 
     // DRAW LOOP: Update Screen Visuals
@@ -148,6 +153,7 @@ public class Game extends PApplet{
     if(isGameOver()){
       endGame();
     }
+    barrier.move(0f, 1f);
 
   } //end draw()
 
