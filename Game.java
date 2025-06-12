@@ -68,7 +68,7 @@ public class Game extends PApplet{
   // Processing method that runs once for screen resolution settings
   public void settings() {
     //SETUP: Match the screen size to the background image size
-    size(550,700);  //these will automatically be saved as width & height
+    size(600,700);  //these will automatically be saved as width & height
 
     // Allows p variable to be used by other classes to access PApplet methods
     p = this;
@@ -106,7 +106,8 @@ public class Game extends PApplet{
 
     //SETUP: Setup more world1 objects
     chick = new AnimatedSprite(p, chickFile, chickJson, 0.0f, 0.0f, 0.5f);
-    car = new Sprite (p, "images/carObject.png", 1.0f, 300, 300);
+    car = new Sprite (p, "images/carObject.png", 1.0f, 175, 475);
+    car.resize(100, 200);
     world1.addSprite(car);
 
     //SETUP: Sound
@@ -184,11 +185,11 @@ public class Game extends PApplet{
 
 
       if (p.keyCode == 39){
-      player1.move(100f, 0f);
+        car.move(200f, 0f);
       }
    
       if (p.keyCode == 37){
-        player1.move(changeX:-100f, 0f);
+        car.move(-200f, 0f);
         }
    
     }
