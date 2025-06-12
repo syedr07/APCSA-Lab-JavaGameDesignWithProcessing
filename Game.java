@@ -18,7 +18,7 @@ public class Game extends PApplet{
   // VARIABLES: Title Bar
   String titleText = "Carcing";
   String extraText = "CurrentLevel?";
-  String name = "Undefined";
+  String name = "Track 1";
 
   // VARIABLES: Whole Game
   AnimatedSprite runningHorse;
@@ -34,11 +34,13 @@ public class Game extends PApplet{
   World world1;
   String world1BgFile = "images/carbg.png";
   PImage world1Bg;
-  String player1File = "images/carObject.png";
+  String player1File = "images/carObject.png"; 
   PImage player1;   // Use PImage to display the image in a GridLocation
   AnimatedSprite chick;
   String chickFile = "sprites/chick_walk.png";
   String chickJson = "sprites/chick_walk.json";
+  Sprite car; 
+  String carObject = "images/carObject.png"; 
   int player1Row = 3;
   int player1Col = 0;
   int player2Row = 5;
@@ -105,7 +107,7 @@ public class Game extends PApplet{
 
     //SETUP: Setup more world1 objects
     chick = new AnimatedSprite(p, chickFile, chickJson, 0.0f, 0.0f, 0.5f);
-
+    car = new sprite (p, "images/carObject.png");
 
     //SETUP: Sound
     // Load a soundfile from the sounds folder of the sketch and play it back
