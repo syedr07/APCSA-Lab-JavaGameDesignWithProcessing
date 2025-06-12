@@ -187,6 +187,11 @@ public class Game extends PApplet{
       if (p.keyCode == 39){
       player1.move(100f, 0f);
       }
+   
+      if (p.keyCode == 37){
+        player1.move(changeX:-100f, 0f);
+        }
+   
     }
 
 
