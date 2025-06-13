@@ -43,6 +43,8 @@ public class Game extends PApplet{
   String barrierObject = "images/barrierObject.png";
   int health = 3;
   Button b1;
+  Sprite barrier1;
+  Sprite barrier2;
 
 
   // VARIABLES: endScreen
@@ -91,7 +93,7 @@ public class Game extends PApplet{
     car.resize(100, 200);
     world1.addSprite(car);
     barrier = new Sprite(p, "Images/barrierObject.png" );
-    world1.addSprite(barrier);
+    world1.addSprite(barrier1);
   
 
     //SETUP: Sound
@@ -132,7 +134,7 @@ public class Game extends PApplet{
     if(isGameOver()){
       endGame();
     }
-    barrier.move(0f, 1f);
+
 
   } //end draw()
 
@@ -255,6 +257,8 @@ public class Game extends PApplet{
       // Print a '1' in console when world1
       System.out.print("1");
 
+
+
       // world1.moveBgXY(-3.0f, 0f);
       // chick.show();
 
@@ -279,15 +283,12 @@ public class Game extends PApplet{
   // Populates enemies or other sprites on the Screen
   public void populateSprites(){
 
-    //What is the index for the last column?
-    
-
-    //Loop through all the rows in the last column
-
-      //Generate a random number
+    // Decide which lanes to populate (ex. 0, 2)
 
 
-      //10% of the time, decide to add an enemy image to a Tile
+    // copy barrier object to specific location (Use copySprite() )
+    // barrier 1 = 
+    // barrier 2 = 
       
 
   }
@@ -295,59 +296,24 @@ public class Game extends PApplet{
   // Moves around the enemies/sprites on the Screen
   public void moveSprites(){
 
-    //Loop through all of the rows & cols in the grid
-
-        //Store the current GridLocation
-
-        //Store the next GridLocation
-
-        //Check if the current tile has an image that is not piece1      
+    //tell barrier 1 and 2 to move
+    barrier1.move(0f, 1f);
 
 
-          //Get image/sprite from current location
-            
-
-          //CASE 1: Collision with piece1
+    // what happens if you touch the car?
 
 
-          //CASE 2: Move enemy over to new location
-
-
-          //Erase image/sprite from old location
-
-          //System.out.println(loc + " " + grid.hasTileImage(loc));
-
-            
-        //CASE 3: Enemy leaves screen at first column
+    // what happens when it reaches below the bottom of the screen
+    
 
   }
 
-  // Checks if there is a collision between Sprites on the Screen
-  public boolean checkCollision(GridLocation loc, GridLocation nextLoc){
-
-    //Check what image/sprite is stored in the CURRENT location
-    // PImage image = grid.getTileImage(loc);
-    // AnimatedSprite sprite = grid.getTileSprite(loc);
-
-    //if empty --> no collision
-
-    //Check what image/sprite is stored in the NEXT location
-
-    //if empty --> no collision
-
-    //check if enemy runs into player
-
-      //clear out the enemy if it hits the player (using cleartTileImage() or clearTileSprite() from Grid class)
-
-      //Update status variable
-
-    //check if a player collides into enemy
-
-    return false; //<--default return
-  }
+ 
 
   // Indicates when the main game is over
   public boolean isGameOver(){
+
+    // if health = 0 --> return true
     
     return false; //by default, the game is never over
   }
