@@ -1,12 +1,16 @@
-/* Game Class Starter File
- * Authors: Syed Rahman, Krishnendu Barman 
- * Last Edit: 5/15/25
- * using new Screen show method
+/**
+ * Game Class - Primary game logic for a Java-based Processing Game
+ * @author Syed Rahman
+ * @author Krishnendu Barman 
+ * @version 6/12/25
+ * No need to create PImage for bg
  */
 
 //import processing.sound.*;
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PImage;
+
 
 public class Game extends PApplet{
 
@@ -26,7 +30,6 @@ public class Game extends PApplet{
 
   // VARIABLES: splashScreen
   Screen splashScreen;
-  PImage splashBg;
   String splashBgFile = "images/startingScreen.jpg";
   //SoundFile song;
 
@@ -34,28 +37,17 @@ public class Game extends PApplet{
   World world1;
   String world1BgFile = "images/carbg.png";
   PImage world1Bg;
-  String player1File = "images/carObject.png"; 
-  PImage player1;   // Use PImage to display the image in a GridLocation
-  AnimatedSprite chick;
-  String chickFile = "sprites/chick_walk.png";
-  String chickJson = "sprites/chick_walk.json";
   Sprite car; 
   String carObject = "images/carObject.png"; 
   Sprite barrier;
   String barrierObject = "images/barrierObject.png";
-  int player1Row = 3;
-  int player1Col = 0;
-  int player2Row = 5;
-  int player2Col = 5;
   int health = 3;
   Button b1;
-
 
 
   // VARIABLES: endScreen
   World endScreen;
   String endBgFile = "images/gameOver.png";
-  PImage endBg;
 
 
   // VARIABLES: Tracking the current Screen being displayed
@@ -80,34 +72,21 @@ public class Game extends PApplet{
   //Required Processing method that gets run once
   public void setup() {
 
-    p.imageMode(p.CORNER);    //Set Images to read coordinates at corners
-    //fullScreen();   //only use if not using a specfic bg image
-    
     //SETUP: Set the title on the title bar
     surface.setTitle(titleText);
-
-    //SETUP: Load BG images used in all screens
-    splashBg = p.loadImage(splashBgFile);
-    world1Bg = p.loadImage(world1BgFile);
-    endBg = p.loadImage(endBgFile);
-
-    //SETUP: If non-moving, Resize all BG images to exactly match the screen size
-    splashBg.resize(p.width, p.height);
-    endBg.resize(p.width, p.height);   
-    world1Bg.resize(p.width, p.height);
+    p.imageMode(PConstants.CORNER);    //Set Images to read coordinates at corners
 
     //SETUP: World1
-    splashScreen = new Screen(this, "splash", splashBg);
+    splashScreen = new Screen(this, "splash", splashBgFile);
     world1 = new World(p, "track", world1BgFile, 3.5f, -65.0f, 0.0f); //moveable World constructor --> defines center & scale (x, scale, y)???
     // System.out.println( "World constructed: " + Util.toStringPImage(world1.getBgImage()));
-    endScreen = new World(this, "end", endBg);
+    endScreen = new World(this, "end", endBgFile);
     currentScreen = splashScreen;
 
     //SETUP: Construct Game objects used in All Screens
     runningHorse = new AnimatedSprite(p, "sprites/horse_run.png", "sprites/horse_run.json", 50.0f, 75.0f, 1.0f);
 
     //SETUP: Setup more world1 objects
-    chick = new AnimatedSprite(p, chickFile, chickJson, 0.0f, 0.0f, 0.5f);
     car = new Sprite (p, "images/carObject.png", 1.0f, 175, 475);
     car.resize(100, 200);
     world1.addSprite(car);
@@ -385,4 +364,4 @@ public class Game extends PApplet{
   }
 
 
-} //close class
+} // end of Game class
