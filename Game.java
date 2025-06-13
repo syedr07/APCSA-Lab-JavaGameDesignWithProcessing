@@ -94,6 +94,9 @@ public class Game extends PApplet{
     world1.addSprite(car);
     barrier = new Sprite(p, "Images/barrierObject.png" );
     world1.addSprite(barrier1);
+    world1.addSpriteCopyTo(barrier1, 150,-50);
+    barrier1 = new Sprite(p, "Images/barrierObject.png" );
+    
   
 
     //SETUP: Sound

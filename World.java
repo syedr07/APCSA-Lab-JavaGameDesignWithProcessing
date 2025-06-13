@@ -116,11 +116,16 @@ public class World extends Screen{
    * @param x
    * @param y
    */
-  public void addSpriteCopyTo(Sprite sprite, float x, float y) {
+  public Sprite addSpriteCopyTo(Sprite sprite, float x, float y) {
     if(sprite.getIsAnimated()){
-      sprites.add( ((AnimatedSprite)sprite).copyTo(x,y));
+      AnimatedSprite a = ((AnimatedSprite)sprite).copyTo(x,y);
+      sprites.add( a);
+      return a;
     } else {
-      sprites.add(sprite.copyTo(x,y));
+      Sprite s =sprite.copyTo(x,y);
+      sprites.add(s);
+      return s;
+
     }
   }
   
