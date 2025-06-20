@@ -39,7 +39,6 @@ public class Game extends PApplet{
   PImage world1Bg;
   Sprite car; 
   String carObject = "images/carObject.png"; 
-  Sprite barrier;
   String barrierObject = "images/barrierObject.png";
   int health = 3;
   Button b1;
@@ -92,7 +91,7 @@ public class Game extends PApplet{
     car = new Sprite (p, "images/carObject.png", 1.0f, 175, 475);
     car.resize(100, 200);
     world1.addSprite(car);
-    barrier = new Sprite(p, "Images/barrierObject.png" );
+    barrier1 = new Sprite(p, "Images/barrierObject.png" );
     world1.addSprite(barrier1);
     world1.addSpriteCopyTo(barrier1, 150,-50);
     barrier1 = new Sprite(p, "Images/barrierObject.png" );
